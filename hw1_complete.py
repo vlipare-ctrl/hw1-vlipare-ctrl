@@ -22,7 +22,8 @@ print(f"Keras Version: {keras.__version__}")
 
 def build_model1():
   model = Sequential([
-    layers.Flatten(input_shape=(32, 32, 3)),
+    Input(shape=(32,32,3)),
+    layers.Flatten(),
     layers.Dense(128, activation=tf.nn.leaky_relu),
     layers.Dense(128, activation=tf.nn.leaky_relu),
     layers.Dense(128, activation=tf.nn.leaky_relu),
@@ -120,16 +121,17 @@ def build_model3():
 
 def build_model50k():
   model = Sequential([
+    Input(shape=(32,32,3)),
     # First Conv Block: normal Conv2D
-    layers.SeparableConv2D(32, (3,3), strides=2, padding='same', activation='relu', input_shape=(32,32,3)),
+    layers.SeparableConv2D(16, (3,3), strides=2, padding='same', activation='relu'),
     layers.BatchNormalization(),
 
     # Second Conv Block: SeparableConv2D
-    layers.SeparableConv2D(64, (3,3), strides=2, padding='same', activation='relu'),
+    layers.SeparableConv2D(32, (3,3), strides=2, padding='same', activation='relu'),
     layers.BatchNormalization(),
 
     # Third Conv Block: SeparableConv2D
-    layers.SeparableConv2D(96, (3,3), strides=2, padding='same', activation='relu'),
+    layers.SeparableConv2D(32, (3,3), strides=2, padding='same', activation='relu'),
     layers.BatchNormalization(),
 
     # Flatten + Dense
